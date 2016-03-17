@@ -1,9 +1,11 @@
 <?php
 
 require_once("forumUserDB.php");
+require_once("forums.php");
 
 $request = $_POST['request'];
 $response = "ayy lmao<p>";
+$forum = new forums("connect.ini");
 switch($request)
 {
     case "login":
@@ -14,6 +16,7 @@ switch($request)
 	if ($response['success']===true)
 	{
 		$response = "Login Successful!<p>";
+	
 	}
 	else
 	{

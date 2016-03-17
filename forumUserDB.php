@@ -46,6 +46,24 @@ class forumUserDB
 	return 0;
     }
 
+    public function getClientName($id)
+    {
+	$query = "select userName from users where userId = '$id';";
+	$results = $this->db->query($query);
+	if (!$results)
+	{
+	    //$this->logger->log("error with results: ".$this->db->error);
+	    return 0;
+	}
+        $client = $results->fetch_assoc();
+	if (isset($client['userName']))
+	{
+	    return $client['userName'];
+	}
+	return 0;
+    }
+    
+    
     private function saltPassword($password)
     {
 	return $this->db->real_escape_string(sha1($password.$this->salt));
@@ -98,5 +116,23 @@ class forumUserDB
 	return array("success"=>true);
     }
 
+    
+    public function getForums(){
+	$query = "select threadName,opName from forums";
+	$result = mysql_query($query);;
+	
+	echo "<table>"; // start a table tag in the HTML
+
+	while($row = mysql_fetch_array($result))
+	{   //Creates a loop to loop through results
+	    echo "<tr><td>" . $row['threadName'] . "</td><td>" . $row['opName'] . "</td></tr>";  //$row['index'] the index here is a field name
+	}
+
+	  echo "</table>"; //Close the table in HTML
+	}
+    
+    
+    
+    
 }
 ?>
