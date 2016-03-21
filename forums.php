@@ -66,8 +66,7 @@ public function __construct($iniFile)
         {
 	    $response = array(
 		"message"=>"user $username doesn't exists!",
-		"success"=>false,
-		"message2"=>"Can't add yourself"
+		"success"=>false
 		);
 	    return $response;
 	}
@@ -79,6 +78,24 @@ public function __construct($iniFile)
 	  return array("success"=>true);
 	}
     }
+    
+	public function getFriends($userId)
+	{
+	  $query = "select friendName from friends where userId='$userId';";
+	  $result = $this->db->query($query);;
+	
+	    echo "<table>
+	    <tr>
+	    <td>Friends:</td>";		
+	    
+	    while($row = $result->fetch_assoc())
+	    {
+	      echo "<tr><td>" . $row['friendName'] . "</td></tr>";
+	    }
+
+	    echo "</table>";
+	}
+    
     
 	public function getForums()
 	{
@@ -99,6 +116,59 @@ public function __construct($iniFile)
 	    echo "</table>";
 	}  
 	
+	public function addForumTopic($title)
+	{
+	    $myName = $_SESSION['myName'];
+	    $myId =$_SESSION['myId'];
+	    $thread = $this->db->real_escape_string($title);
+	    $addQuery = "insert into forums (opId,opName,threadName) values ('$myId','$myName','$title');";
+	    $results = $this->db->query($addQuery); 
+	}
+	
+	public function addComment($thread,$comment)
+	{
+	    $myName = $_SESSION['myName'];
+	    $myId =$_SESSION['myId'];
+	    $article =$this->getArticleId($thread);
+	    $commentAdd = $this->db->real_escape_string($comment);
+	    $addComment = "insert into forumContent(articleId, comment, userId) values ('$article,$commentAdd,$myId);";
+	    $resultsComment = $this->db->query($addComment);
+	   
+	}
+	
+	public function getArticleId($name)
+	{
+	   $query = "select threadId from forums where threadName = '$name';";
+	  $results = $this->db->query($query);
+	  $client = $results->fetch_assoc();
+	  if (isset($client['threadId']))
+	  {
+	    return $client['threadId'];
+	  }
+	  return 0;
+	 }
+	 
+	public function getComments($articleName)
+	{
+	  $articleId = $this->getArticleId($articleName);
+	
+	
+	  $query = "select comment from forumContent where articleId='$articleId';";
+	  $result = $this->db->query($query);;
+	
+	    echo "<table>
+	    <tr>
+	    <td>Comment:</td>
+	    <td></td>
+	    <td>Created By:</td>";		
+	    
+	    while($row = $result->fetch_assoc())
+	    {
+	      echo "<tr><td>" . $row['comment'] . "</td>-------<td>" ."</td><td>" .$this->getClientName($row['userId']) . "</td></tr>";  //$row['index'] the index here is a field name
+	    }
+
+	    echo "</table>";
+	}
 	
 	
 }

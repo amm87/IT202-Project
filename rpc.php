@@ -21,7 +21,18 @@ switch($request)
 		$_SESSION['myName']=$username;
 		$fo= new forums("connect.ini");
 		$fo->getForums();
+		echo '<form action="forumPostPage.html"> 
+		<input type="submit" value="Make a post">
+		</form>';
 		
+		echo '<form action="viewPostPage.html"> 
+		<input type="submit" value="View a Post">
+		</form>';
+		echo '<form action="friendsPage.html"> 
+		<input type="submit" value="Add Friend">
+		</form>';
+		
+		echo $fo->getFriends($login->getClientId($username));
 	}
 	else
 	{
@@ -30,8 +41,9 @@ switch($request)
 	}
 	break;
 }
-$register = $_POST['register'];
 
+
+$register = $_POST['register'];
 switch($register){
    case "register":
 	$username = $_POST['username'];
