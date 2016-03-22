@@ -131,19 +131,20 @@ public function __construct($iniFile)
 	    $myId =$_SESSION['myId'];
 	    $article =$this->getArticleId($thread);
 	    $commentAdd = $this->db->real_escape_string($comment);
-	    $addComment = "insert into forumContent(articleId, comment, userId) values ('$article,$commentAdd,$myId);";
-	    $resultsComment = $this->db->query($addComment);
+	    $add = "insert into forumContent (articleId, comment, userId, userName) values ('$article','$commentAdd','$myId','$myName');";
+	    $resultsComment = $this->db->query($add);
+	    
 	   
 	}
 	
 	public function getArticleId($name)
 	{
-	   $query = "select threadId from forums where threadName = '$name';";
+	   $query = "select * from forums where threadName = '$name';";
 	  $results = $this->db->query($query);
-	  $client = $results->fetch_assoc();
-	  if (isset($client['threadId']))
+	  $post = $results->fetch_assoc();
+	  if (isset($post['threadId']))
 	  {
-	    return $client['threadId'];
+	    return $post['threadId'];
 	  }
 	  return 0;
 	 }
@@ -153,8 +154,8 @@ public function __construct($iniFile)
 	  $articleId = $this->getArticleId($articleName);
 	
 	
-	  $query = "select comment from forumContent where articleId='$articleId';";
-	  $result = $this->db->query($query);;
+	  $query = "select comment,userName from forumContent where articleId='$articleId';";
+	  $result = $this->db->query($query);
 	
 	    echo "<table>
 	    <tr>
@@ -164,7 +165,7 @@ public function __construct($iniFile)
 	    
 	    while($row = $result->fetch_assoc())
 	    {
-	      echo "<tr><td>" . $row['comment'] . "</td>-------<td>" ."</td><td>" .$this->getClientName($row['userId']) . "</td></tr>";  //$row['index'] the index here is a field name
+	      echo "<tr><td>" . $row['comment'] . "</td><td>" ."</td><td>" .$row['userName'] . "</td></tr>";  //$row['index'] the index here is a field name
 	    }
 
 	    echo "</table>";

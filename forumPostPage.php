@@ -16,6 +16,7 @@ switch($addPost)
 	$title = $_POST['title'];
 	$makepost= new forums("connect.ini");
 	$makepost->addForumTopic($title);
+	echo "Post Created";
 	
 	break;
 }

@@ -4,6 +4,7 @@ create table forumContent
     commentId int(11) primary key auto_increment,
     articleId int(11),
     comment varchar(32),
-    userId int(11)
+    userId int(11),
+    userName varchar(32)
     
   );
