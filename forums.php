@@ -125,6 +125,7 @@ public function __construct($iniFile)
 	    $results = $this->db->query($addQuery); 
 	}
 	
+	
 	public function addComment($thread,$comment)
 	{
 	    $myName = $_SESSION['myName'];
@@ -136,6 +137,8 @@ public function __construct($iniFile)
 	    
 	   
 	}
+	
+	
 	
 	public function getArticleId($name)
 	{

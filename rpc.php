@@ -1,25 +1,28 @@
 <?php
+
 session_start();
 
 require_once("forumUserDB.php");
 require_once("forums.php");
-
-$request = $_POST['request'];
-
-$response = "ayy lmao<p>";
-switch($request)
+$url = "forumPostPage.html";
+$request = json_decode(file_get_contents("php://input"),true);
+$response = "error unrecognized request<p>";
+$newuser = json_decode(file_get_contents("php://input"),true);
+switch($request["request"])
 {
     case "login":
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = $request['username'];
+	$password = $request['password'];
 	$login = new forumUserDB("connect.ini");
 	$response = $login->validateClient($username,$password);
 	if ($response['success']===true)
-	{
+	{	
 		//$response = "Login Successful!<p>";
 		$_SESSION['myId'] = $login->getClientId($username);
-		$_SESSION['myName']=$username;
-		$fo= new forums("connect.ini");
+		$_SESSION['myName']=$username; 
+		echo json_encode($_SESSION);
+		
+		/*$fo= new forums("connect.ini");
 		$fo->getForums();
 		echo '<form action="forumPostPage.html"> 
 		<input type="submit" value="Make a post">
@@ -32,7 +35,10 @@ switch($request)
 		<input type="submit" value="Add Friend">
 		</form>';
 		
-		echo $fo->getFriends($login->getClientId($username));
+		echo $fo->getFriends($login->getClientId($username));*/
+		
+		echo '<a href="index.html">Login Success Click here to go the homepage</a>';
+		 
 	}
 	else
 	{
@@ -43,11 +49,11 @@ switch($request)
 }
 
 
-$register = $_POST['register'];
-switch($register){
+//$register = $_POST['register'];
+switch($newuser['request']){
    case "register":
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = $newuser['username'];
+	$password = $newuser['password'];
 	$reg= new forumUserDB("connect.ini");
 	$response=$reg->addNewClient($username, $password);
 	if($response['success']===true)
@@ -62,10 +68,12 @@ switch($register){
 	}
 	break;
 
-}
-//echo $response;
-//echo var_dump($_SESSION);
-//$buddy = new forums("connect.ini");
-//$buddy->addFriend("John");
+} 
+//echo json_encode($response);
+function redirect($url, $permanent = false)
+{
+    header('Location: ' . $url, true, $permanent ? 301 : 302);
 
+    exit();
+}
 ?>

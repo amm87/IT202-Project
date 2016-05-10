@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta char-set="utf-8">
+<title>Ayy Lmao Forums</title>
+</head>
+<body>
+<p>username: <input type="text" id="username" /></p>
+<p>password: <input type ="password" id="password" /></p>
+<button type="button" onclick="sendLogin()">Submit</button>
+<button type="button" onclick="registerUser()">Register</button>
+
+<div id="output"></div>
+<script>
+var request;
+function sendLogin()
+{
+	var name = document.getElementById("username").value;
+	var pw = document.getElementById("password").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","rpc.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"login",username:name,password:pw});
+	request.send(data);
+	
+}
+
+function handleResponse()
+{
+		document.getElementById("output").innerHTML = ""+
+		"<p>"+request.responseText+"</p>";
+}
+function registerUser()
+{
+  var name = document.getElementById("username").value;
+	var pw = document.getElementById("password").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","rpc.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"register",username:name,password:pw});
+	request.send(data);
+}
+</script>
+</body>
+</html>
+

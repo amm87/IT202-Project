@@ -2,7 +2,8 @@
 require_once("forumUserDB.php");
 require_once("forums.php");
 require_once("rpc.php");
-
+$con= new forums("connect.ini");
+echo $con->getFriends($login->getClientId($username));
 
 $addPost = $_POST['add'];
 switch($addPost)
