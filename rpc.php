@@ -20,24 +20,8 @@ switch($request["request"])
 		//$response = "Login Successful!<p>";
 		$_SESSION['myId'] = $login->getClientId($username);
 		$_SESSION['myName']=$username; 
-		echo json_encode($_SESSION);
-		
-		/*$fo= new forums("connect.ini");
-		$fo->getForums();
-		echo '<form action="forumPostPage.html"> 
-		<input type="submit" value="Make a post">
-		</form>';
-		
-		echo '<form action="viewPostPage.html"> 
-		<input type="submit" value="View a Post">
-		</form>';
-		echo '<form action="friendsPage.html"> 
-		<input type="submit" value="Add Friend">
-		</form>';
-		
-		echo $fo->getFriends($login->getClientId($username));*/
-		
 		echo '<a href="index.html">Login Successful Click here to go the homepage</a>';
+		
 		 
 	}
 	else
@@ -70,10 +54,4 @@ switch($newuser['request']){
 
 } 
 //echo json_encode($response);
-function redirect($url, $permanent = false)
-{
-    header('Location: ' . $url, true, $permanent ? 301 : 302);
-
-    exit();
-}
 ?>

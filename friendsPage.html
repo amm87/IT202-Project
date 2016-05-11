@@ -28,10 +28,14 @@ $.ajax({
 
 
 
-<form>
-Add a Friend: <input type="text" id="username" />
-<button type="button" onclick="sendFriend()">Add</button>
-</form>
+<div class="col-lg-4" >
+
+<div class="form-group">
+  <label for="usr">Add a Friend:</label>
+  <input type="text" class="form-control" id="username">
+  <button type="button" onclick="SendFriend();" class="btn btn-default">Add</button>
+</div>
+</div>
 
 <script>
 var request;

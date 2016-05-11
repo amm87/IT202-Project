@@ -16,17 +16,21 @@
 <body>
 
 <form action="forumPostPage.php" method="post">
-Title:<input type="text" id="title"><br>
+<div class="form-group">
+  <label for="usr">Title:</label>
+  <input type="text" class="form-control" id="title">
+</div>
+
 <div class="container">
   <form role="form">
     <div class="form-group">
       <label for="comment">Comment:</label>
       <textarea class="form-control" rows="5" id="comment"></textarea>
+      <button type="button" onclick="sendPost();" class="btn btn-default">Post</button>
     </div>
     
   </form>
 </div>
-<button type="button" onclick="sendPost();">Post</button>
 </form>
 </body>
 <div id="output"></div>

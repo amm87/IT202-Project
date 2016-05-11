@@ -110,11 +110,12 @@ public function __construct($iniFile)
 	    
 	    while($row = $result->fetch_assoc())
 	    {
-	      echo "<tr><td>" . $row['threadName'] . "</td><td>" ."</td><td>" .$row['opName'] . "</td></tr>";  //$row['index'] the index here is a field name
+	      echo "<tr><td>" . $row['threadName'] . "</td><td>" ."</td><td>" .$row['opName'] . "</td></tr>";
 	    }
 
 	    echo "</table>";
-	}  
+	   	         
+	   }  
 	
 	public function addForumTopic($title)
 	{

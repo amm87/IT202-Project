@@ -15,8 +15,13 @@
 <div id="includedContent"></div>
 <body>
 
-<p>View Post: <input type ="text" id="title" /></p>
-<button type="button" onclick="getPost()">Submit</button>
+<div class="form-group">
+  <label for="usr">Title:</label>
+  <input type="text" class="form-control" id="title">
+  <button type="button" onclick="getPost();" class="btn btn-default">Submit</button>
+</div>
+
+
 <div id="output"></div>
 
 
@@ -26,11 +31,11 @@
     <div class="form-group">
       <label for="comment">Comment:</label>
       <textarea class="form-control" rows="5" id="comment"></textarea>
+      <button type="button" onclick="sendComment();" class="btn btn-default">Post</button>
     </div>
     
   </form>
 </div>
-<button type="button" onclick="sendComment();">Post</button>
 </form>
 
 </body>
