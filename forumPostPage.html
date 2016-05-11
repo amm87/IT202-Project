@@ -26,7 +26,7 @@ Title:<input type="text" id="title"><br>
     
   </form>
 </div>
-<button type="button" onclick="sendPost();sendComment();">Post</button>
+<button type="button" onclick="sendPost();">Post</button>
 </form>
 </body>
 <div id="output"></div>
@@ -41,6 +41,7 @@ function sendPost()
 	request.setRequestHeader("Content-type","application/json");
 	var data = JSON.stringify({request:"addPost",title:title});
 	request.send(data);
+	sendComment();
 	
 }
 

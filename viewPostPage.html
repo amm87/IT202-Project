@@ -17,9 +17,23 @@
 
 <p>View Post: <input type ="text" id="title" /></p>
 <button type="button" onclick="getPost()">Submit</button>
+<div id="output"></div>
+
+
+<form action="forumPostPage.php" method="post">
+<div class="container">
+  <form role="form">
+    <div class="form-group">
+      <label for="comment">Comment:</label>
+      <textarea class="form-control" rows="5" id="comment"></textarea>
+    </div>
+    
+  </form>
+</div>
+<button type="button" onclick="sendComment();">Post</button>
+</form>
 
 </body>
-<div id="output"></div>
 <script>
 var request;
 function getPost()
@@ -38,6 +52,19 @@ function handleResponse()
 {
 		document.getElementById("output").innerHTML = ""+
 		"<p>"+request.responseText+"</p>";
+}
+function sendComment()
+{	
+	var title = document.getElementById("title").value;
+	var com = document.getElementById("comment").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","addComment.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"addComment",comment:com,title:title});
+	request.send(data);
+	getPost()
+	
 }
 </script>
 

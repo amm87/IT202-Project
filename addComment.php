@@ -16,7 +16,7 @@ switch($request['request'])
 	$comment = $request['comment'];
 	$title=$request['title'];
 	$myId = $_SESSION['myId'];
-	$title = $_SESSION['currentpost'];
+	//$title = $_SESSION['currentpost'];
 	$addCom= new forums("connect.ini");
 	$addCom->addComment($title,$comment);
 	//echo "Comment added!";	

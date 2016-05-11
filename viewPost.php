@@ -31,6 +31,8 @@ switch($request['request'])
 	$myName = $_SESSION['myName'];
 	$post= new forums("connect.ini");
 	$post->getComments($title);
+	
+	
 	break;
 }
 

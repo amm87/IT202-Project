@@ -37,7 +37,7 @@ switch($request["request"])
 		
 		echo $fo->getFriends($login->getClientId($username));*/
 		
-		echo '<a href="index.html">Login Success Click here to go the homepage</a>';
+		echo '<a href="index.html">Login Successful Click here to go the homepage</a>';
 		 
 	}
 	else
