@@ -3,19 +3,22 @@ require_once("forumUserDB.php");
 require_once("forums.php");
 require_once("rpc.php");
 $con= new forums("connect.ini");
-echo $con->getFriends($login->getClientId($username));
+$con->getFriends($_SESSION['myId']);
 
-$addPost = $_POST['add'];
-switch($addPost)
+
+
+$request = json_decode(file_get_contents("php://input"),true);
+//$addPost = $_POST['add'];
+switch($request['request'])
 {
     case "add":
 	$myId = $_SESSION['myId'];
-	$name = $_POST['friend'];
+	$username = $request['username'];
 	$friend= new forums("connect.ini");
-	$response = $friend->addFriend($name);
+	$response = $friend->addFriend($username);
 	if ($response['success']===true)
 	{
-	  echo "Friend added!";
+	  //echo "Friend added!";
 	}
 	else
 	{

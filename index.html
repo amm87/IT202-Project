@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
 <meta char-set="utf-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <title>Ayy Lmao Forums</title> 
-<head>
+</head>
 <body>
 <script> 
  $(function(){
@@ -22,17 +25,14 @@ $.ajax({
     
      document.getElementById("output").innerHTML = response;
    }
-});
-	
-	
+});	
 
 </script>
+
+<form action="viewPostPage.html"> 
+<input type="submit" value="View a Post">
+</form>
 </body>
 </html>
 
-<style>
-body {
-    background-color: #99ccff;
-}
-</style>
 

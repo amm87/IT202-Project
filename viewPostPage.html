@@ -1,10 +1,44 @@
 <!DOCTYPE html>
 <html>
+<meta char-set="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<title>Ayy Lmao Forums</title> 
+</head>
+<script> 
+ $(function(){
+ $("#includedContent").load("header.html"); 
+  });
+</script>
+<div id="includedContent"></div>
 <body>
 
-<form action="viewPost.php" method="post">
-Title:<input type="text" name="title"><br>
-<input type="submit" name="get" value="Go"/>
-</form>
+<p>View Post: <input type ="text" id="title" /></p>
+<button type="button" onclick="getPost()">Submit</button>
+
 </body>
+<div id="output"></div>
+<script>
+var request;
+function getPost()
+{
+	var title = document.getElementById("title").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","viewPost.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"addComment",title:title});
+	request.send(data);
+	
+}
+
+function handleResponse()
+{
+		document.getElementById("output").innerHTML = ""+
+		"<p>"+request.responseText+"</p>";
+}
+</script>
+
 </html>

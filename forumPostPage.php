@@ -3,20 +3,19 @@ require_once("forumUserDB.php");
 require_once("forums.php");
 require_once("rpc.php");
 
-$addPost = $_POST['submit'];
-
+//$addPost = $_POST['submit'];
+$request = json_decode(file_get_contents("php://input"),true);
 $response = "ayy lmao<p>";
-switch($addPost)
+switch($request['request'])
 {
-    case "post":
-	//$login = new forumUserDB("connect.ini");
+    case "addPost":
 	$myId = $_SESSION['myId'];
 	
 	$myName = $_SESSION['myName'];
-	$title = $_POST['title'];
+	$title = $request['title'];
 	$makepost= new forums("connect.ini");
 	$makepost->addForumTopic($title);
-	echo "Post Created";
+	//echo "Post Created";
 	
 	break;
 }

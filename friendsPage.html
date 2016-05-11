@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta char-set="utf-8">
+<link rel="stylesheet" href="stylesheet.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>  
+<head>
+<script> 
+ $(function(){
+ $("#includedContent").load("header.html"); 
+  });
+</script>
+<div id="includedContent"></div>
+
 <body>
+<div id="output"></div>
+<script>
+
+$.ajax({
+   url: 'friendsList.php',
+   success: function (response) {
+    
+     document.getElementById("output").innerHTML = response;
+   }
+});
+	
+</script>
 
 
 
-<form action="friendsList.php" method="post">
-Add A friend:<input type="text" name="friend"><br>
-<input type="submit" name="add" value="add"/>
+<form>
+Add a Friend: <input type="text" id="username" />
+<button type="button" onclick="sendFriend()">Add</button>
 </form>
+
+<script>
+var request;
+function sendFriend()
+{
+	var name = document.getElementById("username").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","friendsList.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"add",username:name});
+	request.send(data);
+	
+}
+
+function handleResponse()
+{
+		document.getElementById("output").innerHTML = ""+
+		"<p>"+request.responseText+"</p>";
+		$.ajax({
+   url: 'friendsList.php',
+   success: function (response) {
+    
+     document.getElementById("output").innerHTML = response;
+   }
+});
+}
+</script>
+
 </body>
 </html>
